@@ -2,7 +2,10 @@
 #ignore these files specifically as a tutorial in ignoring files
 ignoredFile.py
 
+
+
 *.log
 rogueEnv/
 supplementals/
 *.ps1
+
