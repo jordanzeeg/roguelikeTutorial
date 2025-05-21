@@ -8,17 +8,17 @@ from entity import Entity
 
 from procgen import generate_dungeon
 import entity_factories
-
+import colors
 
 #dynamic screen size
-screen_width = 80
+screen_width = 120 #was 80
 screen_height = 50
 
 FLAGS = tcod.context.SDL_WINDOW_RESIZABLE | tcod.context.SDL_WINDOW_MAXIMIZED
 def main() -> None: 
 
     map_width = 80
-    map_height = 45
+    map_height = 43
 
     #room variables, would make sense to add to the future levels.py file 
     room_max_size = 10
@@ -38,6 +38,9 @@ def main() -> None:
                                 engine= engine)
     
     engine.update_fov()
+    engine.message_log.add_message(
+        "Hello and welcome, adventurer, to yet another dungeon!", colors.welcome_text
+    )
 
     #what are 32 and 8?
     tileset = tcod.tileset.load_tilesheet("assets/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD)
@@ -52,9 +55,12 @@ def main() -> None:
 
         #game loop, everything before this can be considered initialization stuff
         while True:
-            engine.render(console= root_console, context= context)
+            root_console.clear()
+            engine.event_handler.on_render(console=root_console)
+            context.present(root_console)
+            
 
-            engine.event_handler.handle_events()
+            engine.event_handler.handle_events(context)
 
 
 if __name__ == "__main__":

@@ -30,10 +30,11 @@ class GameMap:
         self.explored = np.full(
             (width, height), fill_value=False, order="F"
         )  # Tiles the player has seen before
-
-
         self.entities = set(entities)
 
+    @property
+    def gamemap(self)-> GameMap:
+        return self
 
     @property
     def actors(self) -> Iterator[Actor]:
