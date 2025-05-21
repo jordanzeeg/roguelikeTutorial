@@ -5,6 +5,7 @@ from tcod.context import Context
 from tcod.console import Console
 from tcod.map import compute_fov
 
+import exceptions
 
 from input_handlers import MainGameEventHandler
 
@@ -25,10 +26,12 @@ class Engine:
         self.mouse_location = (0, 0)
 
     def handle_enemy_turns(self) -> None:
-        for entity in self.game_map.entities -{self.player}:
-            if entity.ai:
-                entity.ai.perform()
-
+        for actor in set(self.game_map.actors) - {self.player}:
+            if actor.ai:
+                try:
+                    actor.ai.perform()
+                except exceptions.Impossible:
+                    pass
     
     def render(self, console: Console)-> None:
         #alter render to only clear changes maybe? 
