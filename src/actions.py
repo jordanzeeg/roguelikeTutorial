@@ -30,10 +30,6 @@ class Action:
         """
         raise NotImplementedError()
 
-#quit the game
-class EscapeAction(Action):
-    def perform(self) -> None:
-        raise SystemExit
 
 class ActionWithDirection(Action):
     def __init__(self, entity: Actor, dx: int, dy: int):
@@ -159,7 +155,7 @@ class PickupAction(Action):
 class DropItem(ItemAction):
     def perform(self)-> None:
         self.entity.inventory.drop(self.item)
-        
+
 
 
 '''

@@ -4,7 +4,7 @@ import tcod.event
 from typing import Optional, TYPE_CHECKING
 import actions
 from actions import (
-    Action, BumpAction, EscapeAction, WaitAction, PickupAction
+    Action, BumpAction,  WaitAction, PickupAction
 )
 from entity import Item
 
@@ -122,7 +122,7 @@ class MainGameEventHandler(EventHandler):
         elif key == tcod.event.K_d:
             self.engine.event_handler = InventoryDropHandler(self.engine)
         elif key == tcod.event.KeySym.ESCAPE:
-            action = EscapeAction(player)
+            raise SystemExit
         elif key == tcod.event.K_v:
             self.engine.event_handler = HistoryViewer(self.engine)
         return action
