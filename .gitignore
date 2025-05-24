@@ -4,6 +4,7 @@ ignoredFile.py
 
 
 src/__pycache__/
+src/components/__pycache__/
 *.log
 rogueEnv/
 supplementals/
