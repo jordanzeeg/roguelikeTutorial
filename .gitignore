@@ -1,12 +1,11 @@
 
-#ignore these files specifically as a tutorial in ignoring files
-ignoredFile.py
+#ignore these files and folders
 
-
-src/__pycache__/
-src/components/__pycache__/
+**/__pycache__/
 *.log
 rogueEnv/
 supplementals/
 *.ps1
 
+# Saved games
+*.sav

@@ -7,12 +7,13 @@ from tcod.map import compute_fov
 
 import exceptions
 
-from input_handlers import MainGameEventHandler
+import lzma
+import pickle
 
 if TYPE_CHECKING:
     from entity import Actor
     from game_map import GameMap
-    from input_handlers import EventHandler
+
 from render_functions import render_bar, render_names_at_mouse_location
 from message_log import MessageLog
 
@@ -20,7 +21,6 @@ class Engine:
     game_map: GameMap
 
     def __init__(self, player: Actor):
-        self.event_handler: EventHandler = MainGameEventHandler(self)
         self.player = player
         self.message_log = MessageLog()
         self.mouse_location = (0, 0)
@@ -62,3 +62,10 @@ class Engine:
         #if a tile is "visible" it should be added to explored.
         self.game_map.explored |= self.game_map.visible
         #the above line is inefficient because it checks every element
+
+
+    def save_as(self, filename:str)-> None:
+        """save this engine instance as a compressed file."""
+        save_data = lzma.compress(pickle.dumps(self))
+        with open(filename, "wb") as f:
+            f.write(save_data)
