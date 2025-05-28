@@ -109,6 +109,20 @@ class WaitAction(Action):
     def perform(self) -> None:
         pass
 
+#TODO: rework to be part of a more general interact action
+class TakeStairsAction(Action):
+    def perform(self)-> None:
+        """
+        Take the stairs if they exist here.
+        """
+        if(self.entity.x, self.entity.y)== self.engine.game_map.downstairs_location:
+            self.engine.game_world.generate_floor()
+            self.engine.message_log.add_message(
+                f"You descend the staircase to floor {self.engine.game_world.current_floor}.",colors.descend
+            )
+        else:
+            raise exceptions.Impossible("There are no stairs here.")
+            
 
 class ItemAction(Action):
     def __init__(self, entity:Actor, item:Item, target_xy:Optional[Tuple[int, int]] = None

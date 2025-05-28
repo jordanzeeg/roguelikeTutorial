@@ -49,3 +49,7 @@ CONFIRM_KEYS = {
     tcod.event.KeySym.RETURN,
     tcod.event.KeySym.KP_ENTER,
 }
+
+INTERACT_KEYS= {
+    tcod.event.KeySym.PERIOD,
+}

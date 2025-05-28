@@ -59,3 +59,8 @@ class Fighter(BaseComponent):
         self.parent.render_order = RenderOrder.CORPSE
 
         self.engine.message_log.add_message(death_message, death_message_color)
+
+        #TODO rework to apply to whomever caused the death (so that NPCs can steal xp from player)
+        self.engine.player.level.add_xp(self.parent.level.xp_given)
+
+
