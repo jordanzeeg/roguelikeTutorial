@@ -28,8 +28,8 @@ max_monsters_by_floor = [
 item_chances: Dict[int, List[Tuple[Entity, int]]] = {
     0: [(entity_factories.health_potion, 35)],
     2: [(entity_factories.confusion_scroll, 10)],
-    4: [(entity_factories.lightning_scroll, 25)],
-    6: [(entity_factories.fireball_scroll, 25)],
+    4: [(entity_factories.lightning_scroll, 25), (entity_factories.sword, 5)],
+    6: [(entity_factories.fireball_scroll, 25), (entity_factories.chain_mail, 15)],
 }
 
 enemy_chances: Dict[int, List[Tuple[Entity, int]]] = {
@@ -70,6 +70,13 @@ def get_entities_at_random(
                 entity = value[0]
                 weighted_chance = value[1]
                 entity_weighted_chances[entity] = weighted_chance
+    entities = list(entity_weighted_chances.keys())
+    entity_weighted_chances_values = list(entity_weighted_chances.values())
+
+    chosen_entities = random.choices(
+        entities, weights=entity_weighted_chances_values, k=number_of_entities
+    )
+    return chosen_entities
 
 class RectangularRoom:
     def __init__(self, x:int, y:int, width:int, height:int):
@@ -129,8 +136,6 @@ def generate_dungeon(
     room_max_size: int,
     map_width: int,
     map_height: int,
-    max_monsters_per_room: int,
-    max_items_per_room: int,
     engine: Engine,
 ) -> GameMap:
     """Generate a new dungeon map."""
